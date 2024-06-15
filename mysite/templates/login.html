@@ -1,0 +1,106 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+        <link href="http://fonts.cdnfonts.com/css/lexend-deca" rel="stylesheet">
+        <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" >
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300" />
+
+        <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap4.min.js"></script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> 
+        {{ toastr.include_jquery() }}
+        {{ toastr.include_toastr_css() }}
+        {{ toastr.message() }}
+        <title>Ingreso</title>
+        <style>
+            *{
+                font-family: 'Flexo', sans-serif;
+                font-size: 16px;
+            }
+            html, body{
+            background-color: #bfc0c0;
+            color: #2d3142;
+        }
+
+            
+            button {
+            color: #ffffff;
+            background-color: #ef8354;
+            border-style: none;
+            padding: 6 7 8 7;
+            border-radius: 4px;
+        }
+        .form-control{
+                text-align: center;
+            }
+        .c_bloque{
+            border-radius: 1%;
+            background-color: #ffffff;
+            box-shadow: 0px 1px 4px 0px #2d3142;
+        }
+
+        .c_btn_2{
+            padding: 0 13 0 15 !important;
+            background-color: #4f5d75 !important;
+            color: #ffffff;
+            border-radius: 4px;
+            box-shadow: 0px 1px 3px 0px #4f5d75;
+        }
+        .c_btn_2:hover{
+            padding: 0 13 0 15 !important;
+            background-color: #ffffff !important;
+            color: #4f5d75;
+            border-radius: 4px;
+            box-shadow: 0px 1px 3px 0px #4f5d75;
+        }
+
+
+            .line {
+            width: 80%; /* Establece el largo específico que deseas */
+            height: 2px; /* Establece la altura (grosor) de la línea */
+            margin-left: 10%;
+            background-color: #000; /* Color de la línea (negro en este caso) */
+            }
+
+            .content{
+                background-color: #E8E8E8;
+            }
+
+            .t_h{
+                font-size: 13px !important;
+                background-color: #E8E8E8;
+            }
+        </style>
+    </head>
+
+    <body>
+        {{ toastr.include_toastr_js() }}
+        <div>
+            <div class="container" style="margin-top: 1%; width: 100%;">
+                <!-- Opcion-->
+                <div class="c_bloque" style="width: 100%; height: 96%; padding: 20 50 20 50; text-align: center;">
+                    <h1 style="margin-top: 20%;">Iniciar sesión</h1>
+                    <form action="/insert-key" method="POST" class="row" style="width: 30%; text-align: center; margin-left: 35%; margin-top: 2%;">
+                        <div class="row" style="margin-bottom: 3%;">
+                            <div class="col-sm-6" style="display:flex; align-items: flex-end; justify-content: flex-start; width: 30%;">
+                                <p style="font-size: 14px !important;">Llave de acceso:</p>
+                            </div>
+                            <div class="col-sm-6" style="display:flex; align-items: flex-end; justify-content: flex-start; width: 70%;">
+                                <td class="text-center">
+                                    <input class="form-control" style="height: 30px; width: 100%;" type="text" name="txt-key" required="required">
+                                </td>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-left: 0px; height: 4%; width: 100%; display:flex; align-items: flex-end;">
+                            <button class="c_btn_2" type="submit" style="height: 100%; width: 100%">
+                                <i class="glyphicon glyphicon-log-in" style="font-size: 20px !important;"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,315 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
+        integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ=="
+        crossorigin="anonymous">
+    <link href="http://fonts.cdnfonts.com/css/lexend-deca" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300" />
+
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap4.min.js"></script>
+    <title>Asignación de puntajes</title>
+
+    <style>
+        *{
+            font-family: 'Flexo';
+            font-size: 16px;
+        }
+        html, body{
+            background-color: #bfc0c0;
+            color: #2d3142;
+        }
+        .form-control{
+                text-align: center;
+            }
+        .c_separador{
+            background-color: #bfc0c0;
+        }
+        .c_bloque{
+            border-radius: 1%;
+            background-color: #ffffff;
+            box-shadow: 0px 1px 4px 0px #2d3142;
+        }
+        .c_btn{
+            background-color: #ef8354;
+            color: #ffffff;
+            padding: 6 7 6 7;
+            border-radius: 4px;
+        }
+        .ttl{
+            font-size: 16px;
+            font-weight: bold;
+        }
+        button {
+            color: #ffffff;
+            background-color: #ef8354;
+            border-style: none;
+            padding: 6 7 8 7;
+            border-radius: 4px;
+        }
+        .c_btn_2{
+            padding: 0 13 0 15 !important;
+            background-color: #ffffff !important;
+            color: #4f5d75;
+            border-radius: 4px;
+            box-shadow: 0px 1px 3px 0px #4f5d75;
+        }
+        .c_btn_2:hover{
+            padding: 0 13 0 15 !important;
+            background-color: #4f5d75 !important;
+            color: #ffffff;
+            border-radius: 4px;
+            box-shadow: 0px 1px 3px 0px #4f5d75;
+        }
+
+        .table-bordered>tbody>tr>td {
+            border: 0px;
+        }
+
+        .table-bordered>thead>tr>th {
+            border: 0px;
+        }
+
+        /* Estilo para la barra lateral */
+        .sidebar {
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: #2d3142;
+            color: #ffffff;
+            box-shadow: 6px 0 6px rgba(0, 0, 0, 0.5); /* Agrega la sombra en el lado derecho */
+        }
+    
+
+        /* Estilo para los elementos de la barra lateral */
+        .sidebar a {
+            padding: 40px 0px;
+            text-decoration: none;
+            font-size: 14px !important;
+            color: #ffffff;
+            display: block;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        /* Cambiar el color de fondo del elemento activo en la barra lateral */
+        .sidebar a.active {
+            background-color: #007bff;
+        }
+        
+        .line {
+        width: 80%; /* Establece el largo específico que deseas */
+        height: 2px; /* Establece la altura (grosor) de la línea */
+        margin-left: 10%;
+        background-color: #ffffff; /* Color de la línea (negro en este caso) */
+        }
+
+        .content{
+            background-color: #E8E8E8;
+        }
+
+        .col-sm-6{
+            padding: 0px;
+            justify-content: center;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .subttl{
+            background-color: #4f5d75;
+            color: #ffffff;
+            border-radius: 5px;
+            font-size: 13px;
+            padding: 4 20 4 20;
+        }
+
+        .t_h{
+            font-size: 13px !important;
+            background-color: #4f5d75;
+            color: #ffffff;
+        }
+
+        .text-center{
+            vertical-align: middle !important;
+        }
+
+        .glyphicon {
+        display: inline !important;
+        }
+    </style>
+</head>
+
+<body>
+    {{ toastr.include_toastr_js() }}
+    <div class="col-sm-6" style="width: 9.5%; height: 100%; justify-content: left;">
+        <div class="sidebar">
+            <a href="/mantenimiento" style="display: flex; align-items: center;">
+                <span style="font-size: 25px; text-align: left; margin-right: 20px; margin-left: 20PX;" class="glyphicon glyphicon-wrench"></span>
+                <span style="font-size: 12px; text-align: left; padding-top: 5PX;">MANTENIMIENTO <br>DE DATOS</span>
+            </a>
+            <div class="line"></div>
+            <a href="/criterios_proveedores" style="display: flex; align-items: center;">
+                <span style="font-size: 25px; text-align: left; margin-right: 20px; margin-left: 20PX;" class="glyphicon glyphicon-briefcase"></span>
+                <span style="font-size: 12px; text-align: left; padding-top: 5PX;">CRITERIOS Y PROVEEDORES</span>
+            </a>
+            <div class="line"></div>
+            <a href="/puntaje-criterios" style="display: flex; align-items: center;">
+                <span style="font-size: 25px; text-align: left; margin-right: 20px; margin-left: 20PX;" class="glyphicon glyphicon-pencil"></span>
+                <span style="font-size: 12px; text-align: left; padding-top: 5PX;">ASIGNACIÓN DE PUNTAJES</span>
+            </a>
+            <div class="line"></div>
+            <a href="/resultados" style="display: flex; align-items: center;">
+                <span style="font-size: 25px; text-align: left; margin-right: 20px; margin-left: 20PX;" class="glyphicon glyphicon-stats"></span>
+                <span style="font-size: 12px; text-align: left; padding-top: 5PX;">RESULTADOS</span>
+            </a>
+            <div class="line"></div>
+            <a href="/logout" style="display: flex; align-items: center;">
+                <span style="font-size: 25px; text-align: left; margin-right: 20px; margin-left: 20px;" class="glyphicon glyphicon-log-out"></span>
+                <span style="font-size: 12px; text-align: left; padding-top: 5PX;">SALIR</span>
+            </a>
+        </div>
+    </div>
+    <div class="col-sm-6" style="width: 90%; height: 98%">
+        <div class="container" style="margin: 30 50 20 50; width: 100%;">
+            <!-- Opcion-->
+            <div class="row">
+                <div class="c_bloque" style="width: 100%; height: 97%; padding: 20 50 20 50">
+                    <!--Add-->
+                    <form action="/add-evaluacion-proveedor" method="POST" class="col-sm-6" style="height: 100%; width: 30%;">
+                        <div style="height: 100%; width: 100%; margin-right: 0%;">
+                            <!--Criterios-->
+                            <div class="row" style="height: 5%; width: 100%; margin-right: 0%;">
+                                <!--Estado-->
+                                <div class="col-sm-6" style="height: 100%; width: 100%; margin-right: 0%;">
+                                    <div class="row"
+                                        style="margin-left: 0px; height: 100%; width: 100%; display:flex; align-items: flex-start; justify-content: flex-start;">
+                                        <button class="c_btn_2" value="search" name="action-ruc" type="submit" style="height: 100%; width:100%">
+                                            <i class="glyphicon glyphicon-floppy-disk" style="font-size: 12px !important;"></i>
+                                            <span>&nbsp;&nbsp;Guardar</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--RUC + add-->
+                            <div class="row" style="height: 8%; width: 100%; margin-right: 0%; margin-bottom: 10%;">
+                                <!--Txt RUC-->
+                                <div class="col-sm-6" style="height: 100%; width: 30%; margin-right: 0%;">
+                                    <div class="row"
+                                        style="height: 100%; width: 100%; display:flex; align-items: flex-end; justify-content: flex-start; margin-left: 1%;">
+                                        <p class="ttl">Proveedor:</p>
+                                    </div>
+                                </div>
+                                <!--Btn buscar-->
+                                <div class="col-sm-6"
+                                    style="height: 100%; width: 70%; align-items: flex-end; justify-content: flex-start;">
+                                    <div class="row"
+                                        style="height: 100%; width: 100%; display:flex; align-items: flex-end; justify-content: flex-start;">
+                                        <p class="ttl" style="font-size: 13px !important; font-weight: normal;"><u>{{ sel_prov }}</u></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Criterios-->
+                            {% if sel_prov != "" %}
+                                {% if flg_menu == 0 %}
+                                    {% for c in l_prioridad %}
+                                        <div class="row" style="height: 5%; width: 100%; margin-right: 0%;">
+                                            <!--Criterio-->
+                                            <div class="col-sm-6" style="height: 100%; width: 40%; margin-right: 0%;">
+                                                <div class="row"
+                                                    style="height: 100%; width: 100%; display:flex; align-items: center; justify-content: flex-start; margin-left: 1%;">
+                                                    <p class="subttl" style="font-size: 12px !important; margin: 0 0 0 0 !important;">
+                                                        {{ c.criterio.strCriterio }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <!--Opciones-->
+                                            <div class="col-sm-6" style="height: 100%; width: 60%; margin-right: 0%;">
+                                                <div class="row"
+                                                    style="height: 100%; width: 100%; display:flex; align-items: center; justify-content: flex-start;">
+                                                    <select class="form-control" name="lst-criterios"
+                                                        style="height: 100%; width: 95%">
+                                                        {% for o in l_opcion %}
+                                                            {% if o.idCriterio == c.criterio.idCriterio %}<option value = {{ o.idOpcion }}>{{ o.strOpcion }}</option>{% endif %}
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                    {% endfor %}
+                                {% endif %}
+                                {% if flg_menu == 1 %}
+                                    {% for c in l_prioridad %}
+                                        <div class="row" style="height: 5%; width: 100%; margin-right: 0%;">
+                                            <!--Criterio-->
+                                            <div class="col-sm-6" style="height: 100%; width: 40%; margin-right: 0%;">
+                                                <div class="row"
+                                                    style="height: 100%; width: 100%; display:flex; align-items: center; justify-content: flex-start; margin-left: 1%;"">
+                                                    <p class="subttl" style="font-size: 12px !important; margin: 0 0 0 0 !important;">
+                                                        {{ c.opcion.criterio.strCriterio }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <!--Opciones-->
+                                            <div class="col-sm-6" style="height: 100%; width: 60%; margin-right: 0%;">
+                                                <div class="row"
+                                                    style="height: 100%; width: 100%; display:flex; align-items: center; justify-content: flex-start;">
+                                                    <select class="form-control"  name="lst-criterios"
+                                                        style="height: 100%; width: 95%">
+                                                        {% for o in l_opcion %}
+                                                            {% if o.idCriterio == c.opcion.criterio.idCriterio %}<option value = {{ o.idOpcion }} {% if c.opcion.idOpcion == o.idOpcion %} selected {% endif %}>{{ o.strOpcion }}</option>{% endif %}
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                    {% endfor %}
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </form>
+                    <!--View-->
+                    <div class="col-sm-6" style="height: 100%; width: 67%; overflow: auto; margin-top: 0%;margin-left:3%">
+                        <table class="table table-bordered table-hover table-striped" id="tab_logic">
+                            <thead>
+                                <th class="text-center t_h">RUC</th>
+                                <th class="text-center t_h">Nombre</th>
+                                <th class="text-center t_h">Evaluacion</th>
+                                <th class="text-center t_h">Editar</th>
+                                <th class="text-center t_h">Eliminar</th>
+                            </thead>
+                            <tbody>
+                                {% for p in l_proveedor %}
+                                <tr>
+                                    <form method="POST" action="select-evaluacion-proveedor/{{ p.idProveedor }}">
+                                        <td class="text-center" style="margin: 0 0 0 0">{{ p.rucProveedor }}</td>
+                                        <td class="text-center">{{ p.strNombre }}</td>
+                                        <td class="text-center">
+                                            <ul>
+                                            {% for ev in l_evaluacion %}
+                                                {% if p.idProveedor == ev.proveedor.idProveedor %}<li style="text-align: left;"><b>{{ ev.opcion.criterio.strCriterio }}:</b> {{ ev.opcion.strOpcion }} ({{ ev.opcion.numOpcion}})</li>{% endif %}
+                                            {% endfor %}
+                                            </ul>
+                                        </td>
+                                        <td class="text-center"><button type="submit"><i
+                                                    class="glyphicon glyphicon-pencil"></i></button></td>
+                                        <td class="text-center"><a href="/delete-evaluacion-proveedor/{{ p.idProveedor }}"><span
+                                                    class="glyphicon glyphicon-trash c_btn"></span></a></td>
+                                    </form>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

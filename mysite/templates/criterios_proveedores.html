@@ -1,0 +1,478 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    {{ toastr.include_jquery() }}
+    {{ toastr.include_toastr_css() }}
+    {{ toastr.message() }}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
+        integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ=="
+        crossorigin="anonymous">
+    <link href="http://fonts.cdnfonts.com/css/lexend-deca" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300" />
+    
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap4.min.js"></script>
+    <title>Criterios y proveedores</title>
+
+    <style>
+        *{
+            font-family: 'Flexo';
+            font-size: 16px;
+        }
+        html, body{
+            background-color: #bfc0c0;
+            color: #2d3142;
+        }
+        .c_bloque{
+            border-radius: 1%;
+            background-color: #ffffff;
+            box-shadow: 0px 1px 4px 0px #2d3142;
+        }
+        .form-control{
+                text-align: center;
+            }
+        .c_btn{
+            background-color: #ef8354;
+            color: #ffffff;
+            padding: 6 7 6 7;
+            border-radius: 4px;
+        }
+        .ttl{
+            font-size: 16px;
+            font-weight: bold;
+        }
+        button {
+            color: #ffffff;
+            background-color: #ef8354;
+            border-style: none;
+            padding: 6 7 8 7;
+            border-radius: 4px;
+        }
+        .c_btn_2{
+            padding: 0 13 0 15 !important;
+            background-color: #ffffff !important;
+            color: #4f5d75;
+            border-radius: 4px;
+            box-shadow: 0px 1px 3px 0px #4f5d75;
+        }
+        .c_btn_2:hover{
+            padding: 0 13 0 15 !important;
+            background-color: #4f5d75 !important;
+            color: #ffffff;
+            border-radius: 4px;
+            box-shadow: 0px 1px 3px 0px #4f5d75;
+        }
+
+        .table-bordered>tbody>tr>td {
+            border: 0px;
+        }
+
+        .table-bordered>thead>tr>th {
+            border: 0px;
+        }
+
+        /* Estilo para la barra lateral */
+        .sidebar {
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: #2d3142;
+            color: #ffffff;
+            box-shadow: 6px 0 6px rgba(0, 0, 0, 0.5); /* Agrega la sombra en el lado derecho */
+        }
+    
+
+        /* Estilo para los elementos de la barra lateral */
+        .sidebar a {
+            padding: 40px 0px;
+            text-decoration: none;
+            font-size: 14px !important;
+            color: #ffffff;
+            display: block;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        /* Cambiar el color de fondo del elemento activo en la barra lateral */
+        .sidebar a.active {
+            background-color: #007bff;
+        }
+        
+        .line {
+        width: 80%; /* Establece el largo específico que deseas */
+        height: 2px; /* Establece la altura (grosor) de la línea */
+        margin-left: 10%;
+        background-color: #ffffff; /* Color de la línea (negro en este caso) */
+        }
+
+        .content{
+            background-color: #E8E8E8;
+        }
+
+        .col-sm-6{
+            padding: 0px;
+            justify-content: center;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .t_h{
+            font-size: 13px !important;
+            background-color: #4f5d75;
+            color: #ffffff;
+        }
+
+        .text-center{
+            vertical-align: middle !important;
+        }
+
+        .subttl{
+            background-color: #4f5d75;
+            color: #ffffff;
+            border-radius: 5px;
+            font-size: 13px;
+            padding: 4 5 4 5;
+        }
+
+        .glyphicon {
+        display: inline !important;
+        }
+
+        .tooltip {
+        position: relative;
+        display: inline-block;
+        border-bottom: 1px dotted black;
+        }
+
+        .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 120px;
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 0;
+
+        /* Position the tooltip */
+        position: absolute;
+        z-index: 1;
+        }
+
+        .tooltip:hover .tooltiptext {
+        visibility: visible;
+        }
+    </style>
+</head>
+
+<body>
+    {{ toastr.include_toastr_js() }}
+    <div class="col-sm-6" style="width: 9.5%; height: 100%; justify-content: left;">
+        <div class="sidebar">
+            <a href="/mantenimiento" style="display: flex; align-items: center;">
+                <span style="font-size: 25px; text-align: left; margin-right: 20px; margin-left: 20PX;" class="glyphicon glyphicon-wrench"></span>
+                <span style="font-size: 12px; text-align: left; padding-top: 5PX;">MANTENIMIENTO <br>DE DATOS</span>
+            </a>
+            <div class="line"></div>
+            <a href="/criterios_proveedores" style="display: flex; align-items: center;">
+                <span style="font-size: 25px; text-align: left; margin-right: 20px; margin-left: 20PX;" class="glyphicon glyphicon-briefcase"></span>
+                <span style="font-size: 12px; text-align: left; padding-top: 5PX;">CRITERIOS Y PROVEEDORES</span>
+            </a>
+            <div class="line"></div>
+            <a href="/puntaje-criterios" style="display: flex; align-items: center;">
+                <span style="font-size: 25px; text-align: left; margin-right: 20px; margin-left: 20PX;" class="glyphicon glyphicon-pencil"></span>
+                <span style="font-size: 12px; text-align: left; padding-top: 5PX;">ASIGNACIÓN DE PUNTAJES</span>
+            </a>
+            <div class="line"></div>
+            <a href="/resultados" style="display: flex; align-items: center;">
+                <span style="font-size: 25px; text-align: left; margin-right: 20px; margin-left: 20PX;" class="glyphicon glyphicon-stats"></span>
+                <span style="font-size: 12px; text-align: left; padding-top: 5PX;">RESULTADOS</span>
+            </a>
+            <div class="line"></div>
+            <a href="/logout" style="display: flex; align-items: center;">
+                <span style="font-size: 25px; text-align: left; margin-right: 20px; margin-left: 20px;" class="glyphicon glyphicon-log-out"></span>
+                <span style="font-size: 12px; text-align: left; padding-top: 5PX;">SALIR</span>
+            </a>
+        </div>
+    </div>
+    <div class="col-sm-6" style="width: 90%; height: 98%">
+        <div class="container" style="margin: 30 50 20 50; width: 100%;">
+            <!-- Opcion-->
+            <div class="row">
+                <div class="c_bloque" style="width: 100%; height: 46%; padding: 20 50 20 50">
+                    <!--Add-->
+                    <div class="col-sm-6" style="height: 100%; width: 30%;">
+                        <!--FK Sector-->
+                        <form action="/add-sesion" method="POST" style="height: 28%; width: 100%; margin-right: 0%;">
+                            <div class="row" style="width: 100%; margin-right: 0%;">
+                                <!--Num Prioridad-->
+                                <div class="col-sm-6" style="height: 100%; width: 70%; margin-right: 0%;">
+                                    <div class="row" style="height: 50%; width: 100%; display:flex; align-items: flex-end; justify-content: flex-start;">
+                                        <p class="ttl">Sector</p>
+                                    </div>
+                                    <div class="row" style="height: 50%; width: 100%; display:flex; align-items: flex-end;">
+                                        <select class="form-control" name="cbx-sel-sesion-sector" style="height: 100%; width: 95%">
+                                            {% for s in l_sector %}
+                                            <option value={{ s.idSector }} {% if s.idSector == sel_sector %} selected {% endif %}>{{ s.strSector }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <!--Btn add-->
+                                <div class="col-sm-6"
+                                    style="height: 100%; width: 30%; align-items: flex-end; justify-content: flex-start;">
+                                    <div class="row"style="height: 50%; width: 100%; display:flex; align-items: flex-end; justify-content: flex-start;">
+                                    </div>
+                                    <div class="row" style="margin-left: 0px; height: 50%; width: 100%; display:flex; align-items: flex-end;">
+                                        <button class="c_btn_2" type="submit" style="height: 100%">
+                                            <i class="glyphicon glyphicon-ok"
+                                                style="font-size: 20px !important;"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        {% if sel_sector > 0 %}
+                        <form action="/add-prioridad-crit" method="POST" style="height: 50%; width: 100%; margin-right: 0%; margin-top: -5%;">
+                            <!--FK Criterio-->
+                            <div class="row" style="height: 50%; margin-right: 0%; margin-bottom: 6%; margin-top: 0%; margin-left: 0%;">
+                                <div class="row" style="height: 50%; display:flex; align-items: flex-end; justify-content: flex-start;">
+                                    <p class="ttl">Criterio </p>
+                                </div>
+                                <div class="row" style="height: 50%; width: 71%; display:flex; align-items: flex-end;">
+                                    <select class="form-control" name="cbx-sel-criterio" style="height: 100%; width: 95%">
+                                        {% for c in l_criterio %}
+                                        <option value='{{ c.idCriterio }}'>{{ c.strCriterio }}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <!--Prioridad + add-->
+                            <div class="row" style="height: 50%; width: 100%; margin-right: 0%;">
+                                <!--Num Prioridad-->
+                                <div class="col-sm-6" style="height: 100%; width: 70%; margin-right: 0%;">
+                                    <div class="row"
+                                        style="height: 50%; width: 100%; display:flex; align-items: flex-end; justify-content: flex-start;">
+                                        <p class="ttl" >Prioridad</p>
+                                    </div>
+                                    <div class="row"
+                                        style="height: 50%; width: 100%; display:flex; align-items: flex-end;">
+                                        <select class="form-control" name="cbx-sel-prioridad-numPrioridad" style="height: 100%; width: 95%">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!--Btn add-->
+                                <div class="col-sm-6"
+                                    style="height: 100%; width: 30%; align-items: flex-end; justify-content: flex-start;">
+                                    <div class="row"
+                                        style="height: 50%; width: 100%; display:flex; align-items: flex-end; justify-content: flex-start;">
+                                    </div>
+                                    <div class="row"
+                                        style="margin-left: 0px; height: 50%; width: 100%; display:flex; align-items: flex-end;">
+                                        <button class="c_btn_2" type="submit" style="height: 100%">
+                                            <i class="glyphicon glyphicon-plus"
+                                                style="font-size: 20px !important;"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        {% endif %}
+                    </div>
+                    <!--View-->
+                    <div class="col-sm-6" style="height: 100%; width: 70%; overflow: auto; margin-top: 0%;">
+                        <table class="table table-bordered table-hover table-striped" id="tab_logic">
+                            <thead>
+                                <th class="text-center t_h">Criterio</th>
+                                <th class="text-center t_h">Prioridad</th>
+                                <th class="text-center t_h">Editar</th>
+                                <th class="text-center t_h">Eliminar</th>
+                            </thead>
+                            <tbody>
+                                {% for p in l_prioridad %}
+                                <tr>
+                                    <form method="POST" action="/edit-prioridad-crit/{{ p.idPrioridad }}">
+                                        <td class="text-center" style="margin: 0 0 0 0">{{p.criterio.strCriterio}}</td>
+                                        <td class="text-center">
+                                            <select class="form-control" name="cbx-edit-sel-prioridad-numPrioridad"
+                                                style="height: 100%; width: 95%">
+                                                <option value="1" {% if p.numPrioridad==1 %} selected {% endif %}>1
+                                                </option>
+                                                <option value="2" {% if p.numPrioridad==2 %} selected {% endif %}>2
+                                                </option>
+                                                <option value="3" {% if p.numPrioridad==3 %} selected {% endif %}>3
+                                                </option>
+                                                <option value="4" {% if p.numPrioridad==4 %} selected {% endif %}>4
+                                                </option>
+                                                <option value="5" {% if p.numPrioridad==5 %} selected {% endif %}>5
+                                                </option>
+                                                <option value="6" {% if p.numPrioridad==6 %} selected {% endif %}>6
+                                                </option>
+                                                <option value="7" {% if p.numPrioridad==7 %} selected {% endif %}>7
+                                                </option>
+                                                <option value="8" {% if p.numPrioridad==8 %} selected {% endif %}>8
+                                                </option>
+                                                <option value="9" {% if p.numPrioridad==9 %} selected {% endif %}>9
+                                                </option>
+                                            </select>
+                                        </td>
+                                        <td class="text-center"><button type="submit"><i
+                                                    class="glyphicon glyphicon-pencil"></i></button></td>
+                                        <td class="text-center"><a href="/delete-prioridad-crit/{{p.idPrioridad}}"><span
+                                                    class="glyphicon glyphicon-trash c_btn"></span></a></td>
+                                    </form>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- Division horizontal-->
+            <div class="row c_separador" style="width: 100%; height: 5%;"></div>
+            <!-- Opcion-->
+            <div class="row">
+                <div class="c_bloque" style="width: 100%; height: 46%; padding: 20 50 20 50">
+                    <!--Add-->
+                    <form action="/btn-proveedor" method="POST" class="col-sm-6" style="height: 100%; width: 30%;">
+                        <div style="height: 100%; width: 100%; margin-right: 0%;">
+                            <!--RUC + add-->
+                            <div class="row" style="height: 20%; width: 100%; margin-right: 0%;">
+                                <!--Txt RUC-->
+                                <div class="col-sm-6" style="height: 100%; width: 60%; margin-right: 0%;">
+                                    <div class="row"
+                                        style="height: 50%; width: 100%; display:flex; align-items: flex-end; justify-content: flex-start;">
+                                        <p class="ttl" >RUC</p>
+                                    </div>
+                                    <div class="row"
+                                        style="height: 50%; width: 100%; display:flex; align-items: flex-end;">
+                                        <input class="form-control" name="txt-ruc"type="text" style="height: 100%; width: 90%" required="required" pattern="[0-9]{11}" value={{ session.const_ruc_search }}>
+                                    </div>
+                                </div>
+                                <!--Btn buscar-->
+                                <div class="col-sm-6"
+                                    style="height: 100%; width: 20%; align-items: flex-end; justify-content: flex-start;">
+                                    <div class="row"
+                                        style="height: 50%; width: 100%; display:flex; align-items: flex-end; justify-content: flex-start;">
+                                    </div>
+                                    <div class="row"
+                                        style="margin-left: 0px; height: 50%; width: 100%; display:flex; align-items: flex-end; justify-content: center;">
+                                        <button class="c_btn_2" value="search" name="action-ruc" type="submit" style="height: 100%">
+                                            <i class="glyphicon glyphicon-search"
+                                                style="font-size: 20px !important;"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <!--Btn add-->
+                                <div class="col-sm-6"
+                                    style="height: 100%; width: 20%; align-items: flex-end; justify-content: flex-start;">
+                                    <div class="row"
+                                        style="height: 50%; width: 100%; display:flex; align-items: flex-end; justify-content: flex-start;">
+                                    </div>
+                                    <div class="row"
+                                        style="margin-left: 0px; height: 50%; width: 100%; display:flex; align-items: flex-end;">
+                                        <button class="c_btn_2" value="add" name="action-ruc" type="submit" style="height: 100%">
+                                            <i class="glyphicon glyphicon-plus" style="font-size: 20px !important;"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Detail1-->
+                            <div class="row" style="height: 25%; width: 100%; margin-right: 0%; margin-top: 5%;">
+                                <!--Txt RUC-->
+                                <div class="col-sm-6" style="height: 100%; width: 100%; margin-right: 0%;">
+                                    <div class="row"
+                                        style="height: 50%; width: 100%; display:flex; align-items: center; justify-content: flex-start;">
+                                        <p class="subttl">Nombre</p>
+                                    </div>
+                                    <div class="row"
+                                        style="height: 50%; width: 100%; display:flex; align-items: center;">
+                                        <p class="subttl_2">{{ nombreRUC }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Detail2-->
+                            <div class="row" style="height: 25%; width: 100%; margin-right: 0%;">
+                                <!--Estado-->
+                                <div class="col-sm-6" style="height: 100%; width: 50%; margin-right: 0%;">
+                                    <div class="row" style="height: 50%; width: 100%; display:flex; align-items: center; justify-content: flex-start;">
+                                        <p class="subttl">Estado</p>
+                                    </div>
+                                    <div class="row"
+                                        style="height: 50%; width: 100%; display:flex; align-items: center;">
+                                        <p class="subttl_2">{{ estadoRUC }}</p>
+                                    </div>
+                                </div>
+                                <!--Condicion-->
+                                <div class="col-sm-6" style="height: 100%; width: 50%; margin-right: 0%;">
+                                    <div class="row"
+                                        style="height: 50%; width: 100%; display:flex; align-items: center; justify-content: flex-start;">
+                                        <p class="subttl">Condición</p>
+                                    </div>
+                                    <div class="row"
+                                        style="height: 50%; width: 100%; display:flex; align-items: center;">
+                                        <p class="subttl_2">{{ habidoRUC }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Detail3-->
+                            <div class="row" style="height: 25%; width: 100%; margin-right: 0%;">
+                                <!--Direccion-->
+                                <div class="col-sm-6" style="height: 100%; width: 100%; margin-right: 0%;">
+                                    <div class="row"
+                                        style="height: 50%; width: 100%; display:flex; align-items: center; justify-content: flex-start;">
+                                        <p class="subttl">Domicilio fiscal</p>
+                                    </div>
+                                    <div class="row"
+                                        style="height: 50%; width: 100%; display:flex; align-items: center;">
+                                        <p class="subttl_2" text="{{ direcRUC }}" value="{{ direcRUC }}""">{{ direcRUC }}</p>
+                                    </div>
+                                </div>
+                            </div>                       
+                        </div>
+                    </form>
+                    <!--View-->
+                    <div class="col-sm-6" style="height: 100%; width: 70%; overflow: auto; margin-top: 0%;">
+                        <table class="table table-bordered table-hover table-striped" id="tab_logic">
+                            <thead>
+                                <th class="text-center t_h">RUC</th>
+                                <th class="text-center t_h">Nombre</th>
+                                <th class="text-center t_h">Editar</th>
+                                <th class="text-center t_h">Eliminar</th>
+                            </thead>
+                            <tbody>
+                                {% for p in l_proveedor %}
+                                <tr>
+                                    <form method="POST" action="/edit-proveedor/{{ p.idProveedor }}">
+                                        <td class="text-center" style="margin: 0 0 0 0">
+                                            <input class="form-control" type="text" name="txt-edit-proveedor-ruc" value='{{ p.rucProveedor }}' required="required" pattern="[0-9]{11}">
+                                        </td>
+                                        <td class="text-center">{{ p.strNombre }}</td>
+                                        <td class="text-center"><button type="submit"><i
+                                                    class="glyphicon glyphicon-pencil"></i></button></td>
+                                        <td class="text-center"><a href="/delete-proveedor/{{ p.idProveedor }}"><span
+                                                    class="glyphicon glyphicon-trash c_btn"></span></a></td>
+                                    </form>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
